@@ -4,10 +4,12 @@ import * as KafkaPubSubBase from './KafkaPubSubBase';
 const pubSubModuleMap = [
   {
     protocols: ['ibmmq', 'ibmmq-secure'],
+    libraries: ['java', 'spring'],
     module: MQPubSubBase
   },
   {
     protocols: ['kafka', 'kafka-secure'],
+    libraries: ['java', 'spring'],
     module: KafkaPubSubBase
   }
 ];
@@ -15,9 +17,9 @@ const pubSubModuleMap = [
 function getModule({ asyncapi, params }) {
   const server = asyncapi.allServers().get(params.server);
   const protocol = server.protocol();
-  const foundModule = pubSubModuleMap.find(item => item.protocols.includes(protocol));
+  const foundModule = pubSubModuleMap.find(item => item.protocols.includes(protocol) && item.libraries.includes(params.library));
   if (!foundModule) {
-    throw new Error(`This template does not currently support the protocol ${protocol}`);
+    throw new Error(`This template does not currently support the protocol ${protocol} and library ${params.library}`);
   }
   return foundModule.module;
 }
