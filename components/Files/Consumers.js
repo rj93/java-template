@@ -41,7 +41,7 @@ export function Consumers(asyncapi, channels, params) {
               <ConsumerConstructor asyncapi={asyncapi} params={params} name={name}/>
             </ClassConstructor>
 
-            <ReceiveMessage asyncapi={asyncapi} params={params} message={message}></ReceiveMessage>
+            <ReceiveMessage asyncapi={asyncapi} params={params} name={name} message={message}></ReceiveMessage>
 
             <ConsumerClose asyncapi={asyncapi} params={params} />
           </Class>

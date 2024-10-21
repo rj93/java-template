@@ -72,6 +72,33 @@ describe('template integration tests using the generator', () => {
     }
   });
 
+  it('should generate dynamic consumer subscriber files for spring', async () => {
+    jest.setTimeout(30000);
+
+    const OUTPUT_DIR = generateFolderName();
+    const PACKAGE = 'com.asyncapi';
+    const PACKAGE_PATH = path.join(...PACKAGE.split('.'));
+    const params = {
+      server: 'production',
+      library: 'spring'
+    };
+
+    const generator = new Generator(path.normalize('./'), OUTPUT_DIR, { forceWrite: true, templateParams: params });
+    await generator.generateFromFile(path.resolve('test', 'mocks/kafka-example.yml'));
+
+    const channelName = 'SongReleased';
+
+    const expectedFiles = [
+      'pom.xml',
+      `${PACKAGE_PATH}/${channelName}Producer.java`,
+      `${PACKAGE_PATH}/${channelName}Subscriber.java`
+    ];
+
+    for (const index in expectedFiles) {
+      expect(existsSync(path.join(OUTPUT_DIR, expectedFiles[index]))).toBe(true);
+    }
+  });
+
   it('should generate dynamic model files', async () => {
     jest.setTimeout(30000);
   

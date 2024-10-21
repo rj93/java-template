@@ -4,19 +4,21 @@ import { Readme as MQReadme } from './MQReadme';
 const readmeModuleMap = [
   {
     protocols: ['ibmmq', 'ibmmq-secure'],
+    libraries: ['java', 'spring'],
     module: MQReadme
   },
   {
     protocols: ['kafka', 'kafka-secure'],
+    libraries: ['java', 'spring'],
     module: KafkaReadme
   }
 ];
 
 export default function({ asyncapi, params }) {
   const protocol = asyncapi.server(params.server).protocol();
-  const foundModule = readmeModuleMap.find(item => item.protocols.includes(protocol));
+  const foundModule = readmeModuleMap.find(item => item.protocols.includes(protocol) && item.libraries.includes(params.library));
   if (!foundModule) {
-    throw new Error(`This template does not currently support the protocol ${protocol}`);
+    throw new Error(`This template does not currently support the protocol ${protocol} and library ${params.library}`);
   }
   return foundModule.module({ asyncapi, params });
 }

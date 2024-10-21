@@ -18,7 +18,7 @@ export function resolveDependencies(protocol) {
 
   if (!foundMapping) {
     // This will never throw if the protocols in package.json match the dependency map above
-    throw new Error(`This template does not currently support the protocol ${protocol}`);
+    throw new Error(`This template does not currently support the protocol ${protocol} and library ${params.library}`);
   }
 
   return foundMapping.dependencies;
