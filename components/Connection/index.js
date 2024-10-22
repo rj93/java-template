@@ -4,14 +4,14 @@ import { Connection as MQConnection } from './MQConnection';
 const connectionModuleMap = [
   {
     protocols: ['ibmmq', 'ibmmq-secure'],
-    libraries: ['java', 'spring'],
+    libraries: ['java'],
     module: MQConnection
   },
   {
     protocols: ['kafka', 'kafka-secure'],
-    libraries: ['java', 'spring'],
+    libraries: ['java'],
     module: KafkaConnection
-  }
+  },
 ];
 
 export default function({ asyncapi, params }) {

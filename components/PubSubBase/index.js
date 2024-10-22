@@ -1,16 +1,22 @@
 import * as MQPubSubBase from './MQPubSubBase';
 import * as KafkaPubSubBase from './KafkaPubSubBase';
+import * as NoOpPubSubBase from './NoOpPubSubBase';
 
 const pubSubModuleMap = [
   {
     protocols: ['ibmmq', 'ibmmq-secure'],
-    libraries: ['java', 'spring'],
+    libraries: ['java'],
     module: MQPubSubBase
   },
   {
     protocols: ['kafka', 'kafka-secure'],
-    libraries: ['java', 'spring'],
+    libraries: ['java'],
     module: KafkaPubSubBase
+  },
+  {
+    protocols: ['ibmmq', 'ibmmq-secure', 'kafka', 'kafka-secure'],
+    libraries: ['spring'],
+    module: NoOpPubSubBase
   }
 ];
 

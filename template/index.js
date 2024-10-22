@@ -59,6 +59,9 @@ export default function({ asyncapi, params }) {
 }
 
 function LoggingHelperRenderer(params) {
+  if (params.library === 'spring') {
+    return null;
+  }
   const filePath = `${javaPackageToPath(params.package)}LoggingHelper.java`;
   return (
     <File name={filePath}>
@@ -80,6 +83,9 @@ function ModelContractRenderer(params) {
 }
 
 function ConnectionRender(asyncapi, params) {
+  if (params.library === 'spring') {
+    return null;
+  }
   const filePath = `${javaPackageToPath(params.package)}Connection.java`;
   return (
     <File name={filePath}>
@@ -90,6 +96,9 @@ function ConnectionRender(asyncapi, params) {
 }
 
 function ConnectionHelperRenderer(asyncapi, params) {
+  if (params.library === 'spring') {
+    return null;
+  }
   const filePath = `${javaPackageToPath(params.package)}ConnectionHelper.java`;
   return (
     <File name={filePath}>
@@ -100,6 +109,9 @@ function ConnectionHelperRenderer(asyncapi, params) {
 }
 
 function EnvJsonRenderer(asyncapi, params) {
+  if (params.library === 'spring') {
+    return null;
+  }
   return (
     <File name='/env.json'>
       <EnvJson asyncapi={asyncapi} params={params} />
