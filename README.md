@@ -66,15 +66,15 @@ For complete instructions on generating the Java and subsequently using it to se
 
 You can configure this template by passing different parameters in the Generator CLI: `-p PARAM1_NAME=PARAM1_VALUE -p PARAM2_NAME=PARAM2_VALUE`
 
-Name | Description | Required | Default
----|---|---|---
-`server` | Server must be defined in yaml and selected when using the generator | Yes | -
-`user` | User for the server to generate code for. This can also be provided as an environment variable (see below) | No | app
-`password` | Password for the server to generate code for. This can also be provided as an environment variable (see below) | No | passw0rd
-`package` | Java package name for generated code | No | com.asyncapi
-`mqTopicPrefix` | MQ topic prefix. Used for ibmmq protocols. Default will work with dev MQ instance | No | dev//
-`asyncapiFileDir` | Custom output location of the AsyncAPI file that you provided as an input | No | The root of the output directory
-
+| Name              | Description                                                                                                    | Required | Default                          |
+|-------------------|----------------------------------------------------------------------------------------------------------------|----------|----------------------------------|
+| `server`          | Server must be defined in yaml and selected when using the generator                                           | Yes      | -                                |
+| `library`         | The library to use. Current supported options: [`java`, `spring`]                                              | No       | java                             |
+| `user`            | User for the server to generate code for. This can also be provided as an environment variable (see below)     | No       | app                              |
+| `password`        | Password for the server to generate code for. This can also be provided as an environment variable (see below) | No       | passw0rd                         |
+| `package`         | Java package name for generated code                                                                           | No       | com.asyncapi                     |
+| `mqTopicPrefix`   | MQ topic prefix. Used for ibmmq protocols. Default will work with dev MQ instance                              | No       | dev//                            |
+| `asyncapiFileDir` | Custom output location of the AsyncAPI file that you provided as an input                                      | No       | The root of the output directory |
 
 ## Environment variables
 

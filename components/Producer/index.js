@@ -1,23 +1,31 @@
 import * as MQProducer from './MQProducer';
 import * as KafkaProducer from './KafkaProducer';
+import * as SpringKafkaProducer from './SpringKafkaProducer';
 
 const producerModuleMap = [
   {
     protocols: ['ibmmq', 'ibmmq-secure'],
+    libraries: ['java'],
     module: MQProducer
   },
   {
     protocols: ['kafka', 'kafka-secure'],
+    libraries: ['java'],
     module: KafkaProducer
+  },
+  {
+    protocols: ['kafka', 'kafka-secure'],
+    libraries: ['spring'],
+    module: SpringKafkaProducer
   }
 ];
 
 function getModule({ asyncapi, params }) {
   const server = asyncapi.allServers().get(params.server);
   const protocol = server.protocol();
-  const foundModule = producerModuleMap.find(item => item.protocols.includes(protocol));
+  const foundModule = producerModuleMap.find(item => item.protocols.includes(protocol) && item.libraries.includes(params.library));
   if (!foundModule) {
-    throw new Error(`This template does not currently support the protocol ${protocol}`);
+    throw new Error(`This template does not currently support the protocol ${protocol} and library ${params.library}`);
   }
   return foundModule.module;
 }

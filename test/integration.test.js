@@ -68,6 +68,47 @@ describe('template integration tests using the generator', () => {
     }
   });
 
+  it('should generate dynamic consumer subscriber files for spring', async () => {
+    jest.setTimeout(30000);
+
+    const OUTPUT_DIR = generateFolderName();
+    const PACKAGE = 'com.asyncapi';
+    const PACKAGE_PATH = path.join(...PACKAGE.split('.'));
+    const params = {
+      server: 'production',
+      library: 'spring'
+    };
+
+    const generator = new Generator(path.normalize('./'), OUTPUT_DIR, { forceWrite: true, templateParams: params });
+    await generator.generateFromFile(path.resolve('test', 'mocks/kafka-example.yml'));
+
+    const channelName = 'SongReleased';
+
+    const expectedFiles = [
+      'pom.xml',
+      `${PACKAGE_PATH}/${channelName}Producer.java`,
+      `${PACKAGE_PATH}/${channelName}Subscriber.java`,
+      `${PACKAGE_PATH}/models/ModelContract.java`,
+      `${PACKAGE_PATH}/models/Song.java`,
+    ];
+
+    const notExpectedFiles = [
+      `${PACKAGE_PATH}/Connection.java`,
+      `${PACKAGE_PATH}/ConnectionHelper.java`,
+      `${PACKAGE_PATH}/DemoProducer.java`,
+      `${PACKAGE_PATH}/DemoSubscriber.java`,
+      'env.json',
+    ];
+
+    for (const index in expectedFiles) {
+      expect(existsSync(path.join(OUTPUT_DIR, expectedFiles[index]))).toBe(true);
+    }
+
+    for (const index in notExpectedFiles) {
+      expect(existsSync(path.join(OUTPUT_DIR, notExpectedFiles[index]))).toBe(false);
+    }
+  });
+
   it('should generate dynamic model files', async () => {
     const OUTPUT_DIR = generateFolderName();
     const PACKAGE = 'com.asyncapi';
