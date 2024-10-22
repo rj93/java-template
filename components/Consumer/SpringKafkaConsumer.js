@@ -23,26 +23,11 @@ export function ConsumerDeclaration() {
 
 export function ConsumerImports({ params, message }) {
   return `
-import java.time.Duration;
-import java.util.logging.*;
-import java.io.Serializable;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.annotation.JsonView;
-
-import ${params.package}.ConnectionHelper;
-import ${params.package}.LoggingHelper;
-import ${params.package}.Connection;
 import ${params.package}.PubSubBase;
-
 import ${params.package}.models.ModelContract;
 import ${params.package}.models.${toJavaClassName(message.uid())};
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.springframework.kafka.annotation.KafkaConsumer;
 `;
 }
 
