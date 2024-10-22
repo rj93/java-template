@@ -87,11 +87,25 @@ describe('template integration tests using the generator', () => {
     const expectedFiles = [
       'pom.xml',
       `${PACKAGE_PATH}/${channelName}Producer.java`,
-      `${PACKAGE_PATH}/${channelName}Subscriber.java`
+      `${PACKAGE_PATH}/${channelName}Subscriber.java`,
+      `${PACKAGE_PATH}/models/ModelContract.java`,
+      `${PACKAGE_PATH}/models/Song.java`,
+    ];
+
+    const notExpectedFiles = [
+      `${PACKAGE_PATH}/Connection.java`,
+      `${PACKAGE_PATH}/ConnectionHelper.java`,
+      // `${PACKAGE_PATH}/DemoProducer.java`,
+      // `${PACKAGE_PATH}/DemoSubscriber.java`,
+      'env.json',
     ];
 
     for (const index in expectedFiles) {
       expect(existsSync(path.join(OUTPUT_DIR, expectedFiles[index]))).toBe(true);
+    }
+
+    for (const index in notExpectedFiles) {
+      expect(existsSync(path.join(OUTPUT_DIR, notExpectedFiles[index]))).toBe(false);
     }
   });
 
