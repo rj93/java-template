@@ -95,8 +95,8 @@ describe('template integration tests using the generator', () => {
     const notExpectedFiles = [
       `${PACKAGE_PATH}/Connection.java`,
       `${PACKAGE_PATH}/ConnectionHelper.java`,
-      // `${PACKAGE_PATH}/DemoProducer.java`,
-      // `${PACKAGE_PATH}/DemoSubscriber.java`,
+      `${PACKAGE_PATH}/DemoProducer.java`,
+      `${PACKAGE_PATH}/DemoSubscriber.java`,
       'env.json',
     ];
 
