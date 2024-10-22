@@ -22,23 +22,25 @@ export function ConsumerDeclaration() {
 }
 
 export function ConsumerImports({ params, message }) {
+  const id = message.id() || message.name();
   return `
 import ${params.package}.PubSubBase;
 import ${params.package}.models.ModelContract;
-import ${params.package}.models.${toJavaClassName(message.uid())};
+import ${params.package}.models.${toJavaClassName(id)};
 
 import org.springframework.kafka.annotation.KafkaConsumer;
 `;
 }
 
 export function ReceiveMessage({ message }) {
+  const id = message.id() || message.name();
   let groupId = '';
   if (message.groupId) {
     groupId = `, groupId = "${message.groupId}"`;
   }
   return `
   @KafkaConsumer(topics = channelName ${groupId})
-  public void receive(${toJavaClassName(message.uid())} ${message.uid()}) {
+  public void receive(${toJavaClassName(id)} ${id}) {
     logger.info("Received message type: " + receivedObject.getClass().getName());
     }
   }
