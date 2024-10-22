@@ -83,9 +83,6 @@ function ModelContractRenderer(params) {
 }
 
 function ConnectionRender(asyncapi, params) {
-  if (params.library === 'spring') {
-    return null;
-  }
   const filePath = `${javaPackageToPath(params.package)}Connection.java`;
   return (
     <File name={filePath}>
@@ -96,9 +93,6 @@ function ConnectionRender(asyncapi, params) {
 }
 
 function ConnectionHelperRenderer(asyncapi, params) {
-  if (params.library === 'spring') {
-    return null;
-  }
   const filePath = `${javaPackageToPath(params.package)}ConnectionHelper.java`;
   return (
     <File name={filePath}>

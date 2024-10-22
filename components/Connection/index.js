@@ -1,5 +1,6 @@
 import { Connection as KafkaConnection } from './KafkaConnection';
 import { Connection as MQConnection } from './MQConnection';
+import { Connection as NoOpConnection } from './NoOpConnection';
 
 const connectionModuleMap = [
   {
@@ -11,6 +12,11 @@ const connectionModuleMap = [
     protocols: ['kafka', 'kafka-secure'],
     libraries: ['java'],
     module: KafkaConnection
+  },
+  {
+    protocols: ['ibmmq', 'ibmmq-secure', 'kafka', 'kafka-secure'],
+    libraries: ['spring'],
+    module: NoOpConnection
   },
 ];
 
