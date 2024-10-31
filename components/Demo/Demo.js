@@ -23,6 +23,9 @@ import { getMessagePayload } from '../../utils/Models.utils';
 import { PackageDeclaration } from '../Common';
 
 export function Demo(asyncapi, params) {
+  if (params.library === 'spring') {
+    return null;
+  }
   const foundPubAndSub = asyncapi.allChannels().filterBy((chan) => {
     return chan.operations().filterBySend().length > 0 &&
            chan.operations().filterByReceive().length > 0;

@@ -16,7 +16,6 @@ export function collateModels(asyncapi) {
   return models;
 }
 
-
 // The rest of the generator depends on a message object
 //  having a payload with properties. This is needed to
 //  be able to generate Java classes with attributes
