@@ -25,6 +25,7 @@ export function Producers(asyncapi, channels, params) {
       const name = channel.id();
       const className = `${toJavaClassName(name)}Producer`;
       const packagePath = javaPackageToPath(params.package);
+      const classToExtend = params.library === 'spring' ? undefined : 'PubSubBase';
 
       return (
         <File name={`${packagePath}${className}.java`}>
@@ -33,7 +34,7 @@ export function Producers(asyncapi, channels, params) {
           <ProducerImports asyncapi={asyncapi} params={params} />
           <ImportModels asyncapi={asyncapi} params={params} />
     
-          <Class name={className} extendsClass="PubSubBase">
+          <Class name={className} extendsClass={classToExtend}>
             <ProducerDeclaration asyncapi={asyncapi} params={params} />
     
             <ClassConstructor name={className}>
