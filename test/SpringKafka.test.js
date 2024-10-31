@@ -30,7 +30,9 @@ describe('template spring kafka tests using the generator', () => {
     };
 
     const generator = new Generator(path.normalize('./'), OUTPUT_DIR, { forceWrite: true, templateParams: params });
-    await generator.generateFromFile(path.resolve('test', 'mocks/kafka-example.yml'));
+
+    const inputAsyncApiSchema = 'kafka-example';
+    await generator.generateFromFile(path.resolve('test', `mocks/${inputAsyncApiSchema}.yml`));
 
     const channelName = 'SongReleased';
 
@@ -58,15 +60,16 @@ describe('template spring kafka tests using the generator', () => {
       expect(existsSync(path.join(OUTPUT_DIR, notExpectedFiles[index]))).toBe(false);
     }
 
-    const expectedFileContents = {
-      'test/outputs/spring/producer.java': `${PACKAGE_PATH}/${channelName}Producer.java`,
-      'test/outputs/spring/subscriber.java': `${PACKAGE_PATH}/${channelName}Subscriber.java`,
-    };
+    const expectedFileContents = [
+      `${channelName}Producer.java`,
+      `${channelName}Subscriber.java`,
+    ];
 
-    for (const [expectedFile, actualFile] of Object.entries(expectedFileContents)) {
-      const expected = readFileSync(expectedFile, { encoding: 'utf8' });
-      const acutal = readFileSync(path.join(OUTPUT_DIR, actualFile), { encoding: 'utf8' });
-      expect(acutal).toContain(expected);
+    const EXPECTED_DIR = 'test/outputs/spring';
+    for (const index in expectedFileContents) {
+      const actual = readFileSync(`${OUTPUT_DIR}/${PACKAGE_PATH}/${expectedFileContents[index]}`, { encoding: 'utf8' });
+      const expected = readFileSync(`${EXPECTED_DIR}/${inputAsyncApiSchema}/${expectedFileContents[index]}`, { encoding: 'utf8' });
+      expect(actual).toContain(expected);
     }
   });
 });
