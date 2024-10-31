@@ -57,5 +57,16 @@ describe('template spring kafka tests using the generator', () => {
     for (const index in notExpectedFiles) {
       expect(existsSync(path.join(OUTPUT_DIR, notExpectedFiles[index]))).toBe(false);
     }
+
+    const expectedFileContents = {
+      'test/outputs/spring/producer.java': `${PACKAGE_PATH}/${channelName}Producer.java`,
+      'test/outputs/spring/subscriber.java': `${PACKAGE_PATH}/${channelName}Subscriber.java`,
+    };
+
+    for (const [expectedFile, actualFile] of Object.entries(expectedFileContents)) {
+      const expected = readFileSync(expectedFile, { encoding: 'utf8' });
+      const acutal = readFileSync(path.join(OUTPUT_DIR, actualFile), { encoding: 'utf8' });
+      expect(acutal).toContain(expected);
+    }
   });
 });
